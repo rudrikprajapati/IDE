@@ -17,6 +17,10 @@ import LanguagesDropdown from "./LanguagesDropdown";
 
 const javascriptDefault = `/**Enter you code below**/`;
 
+/**
+ * The `Landing` function is a React component that manages state for code, custom input, output
+ * details, processing, theme, and language options.
+ */
 const Landing = () => {
   const [code, setCode] = useState(javascriptDefault);
   const [customInput, setCustomInput] = useState("");
@@ -33,6 +37,16 @@ const Landing = () => {
     setLanguage(sl);
   };
 
+  /**
+   * The above code snippet is a JavaScript useEffect hook that listens for a combination of the enter
+   * key and the control key being pressed, and if detected, it calls the handleCompile function. The
+   * onChange function is used to update the code state based on different actions.
+   * @param action - The "action" parameter is a string that represents the type of action being
+   * performed. In this code snippet, it is used in a switch statement to determine what action is
+   * being performed and how to handle it.
+   * @param data - The "data" parameter in the "onChange" function is the new value of the code. It is
+   * used to update the "code" state variable.
+   */
   useEffect(() => {
     if (enterPress && ctrlPress) {
       console.log("enterPress", enterPress);
@@ -51,6 +65,11 @@ const Landing = () => {
       }
     }
   };
+
+  /**
+   * The function `handleCompile` sends a POST request to a Rapid API endpoint with the encoded source
+   * code, language ID, and custom input as parameters.
+   */
   const handleCompile = () => {
     setProcessing(true);
     const formData = {
@@ -72,6 +91,8 @@ const Landing = () => {
       data: formData,
     };
 
+    /* The code snippet you provided is using the Axios library to make a POST request to a Rapid API
+    endpoint. */
     axios
       .request(options)
       .then(function (response) {
@@ -97,6 +118,16 @@ const Landing = () => {
       });
   };
 
+  /**
+   * The function `checkStatus` is an asynchronous function that makes a GET request to a specified URL
+   * with a token, and checks the status of the response data. If the status is "Processed", it sets
+   * the processing flag to false, sets the output details, and shows a success toast. If the status is
+   * still "Processing", it recursively calls itself after a delay of 2000 milliseconds. If there is an
+   * error, it sets the processing flag to false and shows an error toast.
+   * @param token - The `token` parameter is a unique identifier for a specific request or task. It is
+   * used to track the status of the request and retrieve the result once it is completed.
+   * @returns The function `checkStatus` returns a Promise.
+   */
   const checkStatus = async (token) => {
     const options = {
       method: "GET",

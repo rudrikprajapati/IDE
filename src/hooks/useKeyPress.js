@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
 const useKeyPress = function (targetKey) {
+  /**
+   * This function listens for a specific key press and updates the state to indicate whether the key
+   * is currently pressed or not.
+   */
   const [keyPressed, setKeyPressed] = useState(false);
 
   function downHandler({ key }) {
